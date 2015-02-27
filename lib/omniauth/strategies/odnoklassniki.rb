@@ -54,6 +54,7 @@ module OmniAuth
           {'expires' => 1800}.merge(options.access_token_options.to_hash(:symbolize_keys => true)))
         else
           super
+        end
       end
 
       private
