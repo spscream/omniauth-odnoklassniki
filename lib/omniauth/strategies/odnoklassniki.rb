@@ -48,9 +48,12 @@ module OmniAuth
       end
 
       def build_access_token
-        verifier = request.params['code']
-        client.auth_code.get_token(verifier, {:redirect_uri => callback_url}.merge(token_params.to_hash(:symbolize_keys => true)),
+        if request.params.key?('code')
+         verifier = request.params['code']
+         client.auth_code.get_token(verifier, {:redirect_uri => callback_url}.merge(token_params.to_hash(:symbolize_keys => true)),
           {'expires' => 1800}.merge(options.access_token_options.to_hash(:symbolize_keys => true)))
+        else
+          super
       end
 
       private
